@@ -26,7 +26,7 @@ function makeAbc() {
            let n = (obj[i].name).charAt(0); 
         if(x === n)
             {
-            text.innerText += " " + k + "." + obj[i].name;
+            text.innerText += " " + k + "." + obj[i].name + "\n";
             ++k;
              }
       
