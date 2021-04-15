@@ -3,10 +3,10 @@ const text = document.querySelector('p');
 function makeAbc() {
     let letter = "";
     let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    for (let i = 0; i < 5; i++){
+    for (let i = 0, j = 1; i < 5; i++, j++){
         letter += possible.charAt(Math.floor(Math.random() * possible.length));
          possible = possible.replace(letter, "");
-        abc[i].innerHTML = letter;
+        abc[j].innerHTML = letter;
          letter = "";
         }   
   }
@@ -15,25 +15,28 @@ function makeAbc() {
   function changes(){
     const chahge = document.getElementById('abc').options; 
     const sel = document.getElementById('abc').selectedIndex; 
-    const x = chahge[sel].text;
     text.innerText = " ";
-    let k = 1;
+    let sumFoundElenents = 1;
     fetch('./list.json')
     .then(response => response.json())
     .then(function (myJson) { 
      const obj = myJson;
+     if(chahge[sel].text==="Letter"){
+      text.innerText = "Select a letter";
+     }else{
        for (let i=0; i < obj.length; i++) {   
            let n = (obj[i].name).charAt(0); 
-        if(x === n)
+        if((chahge[sel].text) === n)
             {
-            text.innerText += " " + k + "." + obj[i].name + "\n";
-            ++k;
+            text.innerText += " " + sumFoundElenents + "." + obj[i].name + "\n";
+            ++sumFoundElenents;
              }
       
        }
-       if(k === 1){
+       if(sumFoundElenents === 1){
         text.innerText = "Sorry, no matches";
        }
+      }
     })
     .catch(function(error){
       console.log("ERROR!!!");
